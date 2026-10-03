@@ -3,6 +3,7 @@ PHIẾU CÁ NHÂN — DAY 14
 Không dán ảnh, toạ độ điểm hay nội dung file export vào đây.
 
 Họ tên / mã học viên: Lê Việt Anh / 2A202602111
+Phạm vi gán nhãn: Chỉ thực hiện gán nhãn 01 phương tiện duy nhất là J01-b (không gán nhãn toàn bộ phương tiện trong cảnh)
 Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01: J01-b (số cuối 1) / 0
 Phiên bản CVAT / overlay đã bật (có/không): v2.74.1 / có
 
