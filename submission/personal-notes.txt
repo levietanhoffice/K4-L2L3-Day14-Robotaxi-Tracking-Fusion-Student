@@ -2,34 +2,36 @@ PHIẾU CÁ NHÂN — DAY 14
 Điền file này, chạy QC vào submission/qc-j01 và submission/qc-practice, commit rồi nộp link repo.
 Không dán ảnh, toạ độ điểm hay nội dung file export vào đây.
 
-Họ tên / mã học viên:
-Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01:
-Phiên bản CVAT / overlay đã bật (có/không):
+Họ tên / mã học viên: Lê Việt Anh / 2A202602111
+Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01: J01-b (số cuối 1) / 0
+Phiên bản CVAT / overlay đã bật (có/không): v2.74.1 / có
 
 J01 — TRACK LÕI
-Frame fit và lý do:
-L / W / H (m):
-Keyframe quan trọng và lý do:
-Đã bấm F qua đủ frame 0–65 (có/không):
-Đoạn thưa / che khuất / dễ nhầm identity:
+Frame fit và lý do: Frame 38 — tại đây xe ở cự ly gần xe ego nhất, chùm tia LiDAR quét dày và phản xạ đầy đủ biên dạng đuôi, hông trái và nóc xe, giúp fit Top/Side/Front chuẩn xác làm kích thước tham chiếu vật rắn.
+L / W / H (m): 4.10 / 1.70 / 1.60
+Keyframe quan trọng và lý do: Frame 0 (bắt đầu track, xe xuất hiện), Frame 38 (frame neo/chuẩn kích thước tham chiếu), Frame 20 & 50 (các điểm chuyển hướng/thay đổi vận tốc góc di chuyển), Frame 65 (kết thúc sequence).
+Đã bấm F qua đủ frame 0–65 (có/không): có
+Đoạn thưa / che khuất / dễ nhầm identity: Đoạn frame 0–10 (xe ở xa, điểm LiDAR thưa, duy trì L/W/H tham chiếu không co nhỏ box); đoạn frame 55–65 (xe chạy dần ra xa về phía trước, xuất hiện các xe khác gần kề nhưng vẫn bám đúng identity theo hướng di chuyển liên tục).
 
 SELF-QC (từ qc_tracks.csv / qc_flags.csv)
-Lần QC đầu — cờ của track J01 (loại, frame):
+Lần QC đầu — cờ của track J01 (loại, frame): dimension_drift (frame 0, W drift 5.6%), no_interpolation (frame 0, 65/66 keyframes)
 Quyết định cho từng cờ (sửa / giữ vì hợp lệ / chưa đủ evidence) và lý do:
-Đã sửa gì sau QC đầu; QC cuối còn cờ nào:
-Nhận xét của bạn cùng cặp và bạn đồng ý/không đồng ý vì sao:
+- dimension_drift: Sửa — cố định lại W = 1.70m đồng nhất trên toàn bộ các frame, không để nhảy lên 1.80m nhằm đảm bảo tính chất vật rắn.
+- no_interpolation: Giữ — do chủ động đặt nhiều keyframe để kiểm soát chính xác heading và tâm box theo cụm điểm từng frame khi xe đổi làn/di chuyển, chuyển động box thực tế trên 3D và camera overlay rất mượt mà.
+Đã sửa gì sau QC đầu; QC cuối còn cờ nào: Đã đồng bộ lại kích thước W=1.70m chuẩn; QC cuối giải quyết xong dimension_drift.
+Nhận xét của bạn cùng cặp và bạn đồng ý/không đồng ý vì sao: Bạn cùng cặp xác nhận box ôm khít xe trên image_1, kích thước cố định tốt qua các frame thưa; đồng ý giữ nguyên.
 
 CAMERA–LIDAR (overlay trên image_1)
-Ca bình thường (frame / quan sát):
-Ca khó (frame / quan sát 2D / quan sát 3D):
-Giả thuyết nguyên nhân (annotation / FOV / occlusion / sparse / nghi calibration / chưa đủ evidence):
-Hành động (sửa / giữ / báo Lab Coach) và lý do:
+Ca bình thường (frame / quan sát): Frame 38 — Nét overlay màu xanh trên image_1 ôm khít thân xe, mép đáy tiếp xúc mặt đường và nóc xe khớp với đường viền trên ảnh 2D.
+Ca khó (frame / quan sát 2D / quan sát 3D): Frame 0 — Quan sát 2D: xe ở xa, độ phân giải pixel nhỏ và nằm gần các phương tiện khác; Quan sát 3D: cụm điểm LiDAR thưa chỉ còn vài điểm ở mặt sau xe.
+Giả thuyết nguyên nhân (annotation / FOV / occlusion / sparse / nghi calibration / chưa đủ evidence): sparse (điểm thưa do khoảng cách xa cảm biến) + FOV rìa ảnh, không phải lỗi calibration vì hình chiếu tổng thể vẫn đồng pha với mặt đường.
+Hành động (sửa / giữ / báo Lab Coach) và lý do: Giữ — duy trì cuboid theo kích thước tham chiếu 4.1 x 1.7 x 1.6 m và vị trí nội suy theo các điểm LiDAR còn lại, không thu nhỏ box theo điểm thưa. 
 
 CASE NGẮN (task practice)
-Case → track ID (ví dụ B01 → 3):
-Case đã xong:
-Case đang dở / chỗ kẹt:
-fragmentation_suspect ở đầu/cuối case đã kiểm là do cách cắt case (có/không):
+Case → track ID (ví dụ B01 → 3): B01 → 0, B02 → 1, B03 → 2, B04 → 3, B05 → 4 (trên giao diện CVAT là track #1 đến #5)
+Case đã xong: B01 (frame 16–21), B02 (frame 28–33), B03 (frame 36–41), B04 (frame 28–33), B05 (frame 52–57)
+Case đang dở / chỗ kẹt: không có
+fragmentation_suspect ở đầu/cuối case đã kiểm là do cách cắt case (có/không): có (đã xác nhận các case B01-B05 bắt đầu và kết thúc outside theo đúng khoảng frame của bài lab)
 
 THỜI GIAN
-J01 / case ngắn / QC và fusion:
+J01 / case ngắn / QC và fusion: 40 phút / 35 phút / 20 phút
